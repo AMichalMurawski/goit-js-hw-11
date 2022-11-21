@@ -4,8 +4,8 @@ import { Notify } from 'notiflix';
 const API_KEY = '31382977-48057b8c379edff4cc262b675';
 const API_WEB = 'https://pixabay.com/api/';
 
-function getResponseImageArray(inputText, pageNr, perPageNr) {
-  axios
+async function getPixabayImages(inputText, pageNr, perPageNr) {
+  return await axios
     .get(`${API_WEB}?`, {
       params: {
         key: API_KEY,
@@ -24,7 +24,9 @@ function getResponseImageArray(inputText, pageNr, perPageNr) {
           'Sorry, there are no images matching your search query. Please try again.'
         );
       }
-      Notify.success(`Hooray! We found ${responseTotalHits} images.`);
+      if (pageNr === 1) {
+        Notify.success(`Hooray! We found ${responseTotalHits} images.`);
+      }
       const dataLength = response.data.hits.length;
       const responseDataArray = [];
       for (let i = 0; i < dataLength; i++) {
@@ -45,4 +47,4 @@ function getResponseImageArray(inputText, pageNr, perPageNr) {
     });
 }
 
-export { getResponseImageArray };
+export { getPixabayImages };
