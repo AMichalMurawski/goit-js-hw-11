@@ -20,17 +20,15 @@ async function getPixabayImages(inputText, pageNr, perPageNr) {
     .then(response => {
       const responseTotalHits = response.data.totalHits;
       if (responseTotalHits === 0) {
-        throw new Error(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      }
-      if (pageNr === 1) {
-        Notify.success(`Hooray! We found ${responseTotalHits} images.`);
+        throw (err = { totalHits: 0 });
       }
       const dataLength = response.data.hits.length;
-      const responseDataArray = [];
+      const responseDataArray = {
+        totalHits: responseTotalHits,
+        data: [],
+      };
       for (let i = 0; i < dataLength; i++) {
-        responseDataArray.push({
+        responseDataArray.data.push({
           webformatURL: response.data.hits[i].webformatURL,
           largeImageURL: response.data.hits[i].largeImageURL,
           tags: response.data.hits[i].tags,
@@ -43,7 +41,7 @@ async function getPixabayImages(inputText, pageNr, perPageNr) {
       return responseDataArray;
     })
     .catch(error => {
-      Notify.failure(error.message);
+      return error;
     });
 }
 
