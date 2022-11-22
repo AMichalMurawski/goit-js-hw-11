@@ -41,30 +41,17 @@ async function fetchPixabay(searchText, pageNr) {
     pageNr,
     ELEMENTS_PER_PAGE
   );
-  if (pageNr === 1) {
-    if (imageArray.totalHits > 0) {
-      loadMoreBtn.style.display = 'block';
-      Notify.success(`Hooray! We found ${imageArray.totalHits} images.`);
-    } else if (imageArray.totalHits === 0) {
-      loadMoreBtn.style.display = 'none';
-      Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-      return;
-    } else {
-      loadMoreBtn.style.display = 'none';
-      Notify.warning(`It's a problem with js code!`);
-      return;
-    }
-  }
-  if ((pageNr - 1) * ELEMENTS_PER_PAGE >= imageArray.totalHits) {
-    Notify.warning(
-      `We're sorry, but you've reached the end of search results.`
-    );
-    return;
-  }
-  if (imageArray.totalHits > 0) {
+  if (notifyMessage(pageNr, imageArray.totalHits)) {
     addImagesToHtml(imageArray.data);
+  }
+  if (pageNr > 1) {
+    const { height: cardHeight } = document
+      .querySelector('.gallery')
+      .getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight,
+      behavior: 'smooth',
+    });
   }
 }
 
@@ -91,4 +78,31 @@ function addImagesToHtml(images) {
       .join('\n')
   );
   lightbox.refresh();
+}
+
+function notifyMessage(pageNr, totalHits) {
+  if (pageNr > 1 && (pageNr - 1) * ELEMENTS_PER_PAGE >= totalHits) {
+    Notify.warning(
+      `We're sorry, but you've reached the end of search results.`
+    );
+    return false;
+  }
+  if (pageNr > 1) {
+    return true;
+  }
+  if (totalHits > 0) {
+    loadMoreBtn.style.display = 'block';
+    Notify.success(`Hooray! We found ${totalHits} images.`);
+    return true;
+  }
+  if (totalHits === 0) {
+    loadMoreBtn.style.display = 'none';
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    return false;
+  }
+  loadMoreBtn.style.display = 'none';
+  Notify.warning(`It's a problem with js code!`);
+  return false;
 }
