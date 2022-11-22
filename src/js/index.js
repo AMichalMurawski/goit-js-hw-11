@@ -45,11 +45,11 @@ async function fetchPixabay(searchText, pageNr) {
     addImagesToHtml(imageArray.data);
   }
   if (pageNr > 1) {
-    const { height: cardHeight } = document
+    const { height: galleryHeight } = document
       .querySelector('.gallery')
       .getBoundingClientRect();
     window.scrollBy({
-      top: cardHeight,
+      top: galleryHeight,
       behavior: 'smooth',
     });
   }
