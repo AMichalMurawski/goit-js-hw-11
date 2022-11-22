@@ -1,6 +1,7 @@
-import './css/styles.css';
+import '../css/styles.css';
+import 'node_modules/modern-normalize/modern-normalize.css';
 import { getPixabayImages } from './fetchPixabayImages';
-import axios from 'axios';
+// import axios from 'axios';
 // import Notiflix from 'notiflix';
 
 const ELEMENTS_PER_PAGE = 40;
@@ -34,7 +35,9 @@ function addImagesToHtml(images) {
       .map(
         image =>
           `<div class="photo-card">
-            <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+            <div class="photo-image">
+              <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+            </div>
             <div class="info">
               <p class="info-item"><b>Likes</b></br>${image.likes}</p>
               <p class="info-item"><b>Views</b></br>${image.views}</p>
