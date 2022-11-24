@@ -57,6 +57,26 @@ img {
   width: 100%;
 }
 
+.btn {
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 15px;
+}
+
+.loaded-options {
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  background-color: lightgray;
+  color: brown;
+}
+
+.loaded-options:hover,
+.loaded-options:focus {
+  box-shadow: inset 0 0 4px gray;
+}
+
 .gallery {
   width: 100%;
   height: 100%;
@@ -65,15 +85,16 @@ img {
   gap: 20px;
   font-size: 12px;
   padding: 20px;
+  justify-content: center;
 }
 
 .photo-card {
-  flex-basis: calc((100% - 60px) / 4);
+  width: 285px;
 }
 
 .photo-image {
   width: 100%;
-  height: 70%;
+  height: 200px;
   position: relative;
   overflow: hidden;
 }
@@ -93,4 +114,11 @@ img {
 
 .info-item {
   text-align: center;
+}
+
+.load-more {
+  display: block;
+  margin: 0 auto;
+  background-color: #3f70d1;
+  color: white;
 }

@@ -27,7 +27,13 @@ async function getPixabayImages(inputText, pageNr, perPageNr) {
         totalHits: responseTotalHits,
         data: [],
       };
-      for (let i = 0; i < dataLength; i++) {
+      let lengthArray = responseDataArray.totalHits - pageNr * perPageNr;
+      if (lengthArray < 0) {
+        lengthArray = perPageNr + lengthArray;
+      } else {
+        lengthArray = perPageNr;
+      }
+      for (let i = 0; i < lengthArray; i++) {
         responseDataArray.data.push({
           webformatURL: response.data.hits[i].webformatURL,
           largeImageURL: response.data.hits[i].largeImageURL,
