@@ -26,11 +26,11 @@ searchBtn.addEventListener('click', event => {
   firstSearch();
 });
 
-loadedOptions.textContent = 'Handle loading';
+loadedOptions.textContent = 'Manual loading';
 loadedOptions.addEventListener('click', () => {
   if (automaticLoad) {
     nrOfPage > 0 ? (loadMoreBtn.style.display = 'block') : null;
-    loadedOptions.textContent = 'Handle loading';
+    loadedOptions.textContent = 'Manual loading';
     automaticLoad = false;
   } else {
     loadMoreBtn.style.display = 'none';
