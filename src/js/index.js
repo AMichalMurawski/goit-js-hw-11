@@ -4,7 +4,6 @@ import { getPixabayImages } from './fetchPixabayImages';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import InfiniteScroll from 'infinite-scroll';
 
 const ELEMENTS_PER_PAGE = 40;
 let nrOfPage = 0;
@@ -128,7 +127,6 @@ function addImagesToHtml(images) {
 
 function notifyMessage(pageNr, totalHits) {
   if (totalHits === undefined) {
-    // loadMoreBtn.style.display = 'none';
     automaticLoad === false
       ? Notify.warning(
           `We're sorry, but you've reached the end of search results.`
